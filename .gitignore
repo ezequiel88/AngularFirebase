@@ -1,9 +1,4 @@
-src/environments/environment.prod.ts
-src/environments/environment.ts
 *.log
-
-package.lock.json
-
 dist/
 tmp/
 app/**/*.js
@@ -31,3 +26,4 @@ e2e/*.map
 
 # System Files
 .DS_Store/
+package-lock.json
