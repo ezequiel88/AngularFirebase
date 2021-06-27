@@ -1,0 +1,12 @@
+<div class="container">
+    <div class="container_content">
+
+        <mat-card *ngIf="(auth.user | async) as user">
+            <mat-card-content>
+                <h3>Usuário: <b>{{ user.displayName ? user.displayName : user.email }}</b></h3>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+
+</div>

@@ -1,0 +1,12 @@
+<h2>SisCad</h2>
+<p>Deseja excluir esse registro?</p>
+
+<p>Produto: <b>{{ data.nome }}</b> </p>
+<div class="btn_action">
+    <button mat-button aria-label="Alterar Produto" (click)="cancelar()" cdkFocusInitial>
+        Não
+    </button>
+    <button class="btn_delete" mat-raised-button color="warn" aria-label="Excluir Produto" [mat-dialog-close]="data.id">
+        Sim
+    </button>
+</div>

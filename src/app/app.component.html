@@ -1,0 +1,47 @@
+<mat-drawer-container class="example-container" [hasBackdrop]="hasBackdrop">
+  <mat-drawer #drawer [mode]="mode">
+    <div class="banner" *ngIf="(auth.user | async) as user">
+      <img mat-card-avatar class="avatar" src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+      <span class="user_info">{{ user.email }} <br> {{ user.uid }}</span>
+    </div>
+
+    <mat-nav-list>
+      <mat-list-item [routerLink]="[m.url]" routerLinkActive="btn-active" class="btn" (click)="drawer.toggle()"
+        *ngFor="let m of menu">
+        <mat-icon matListIcon>{{m.icon}}</mat-icon>
+        <p matLine>{{m.label}}</p>
+      </mat-list-item>
+    </mat-nav-list>
+
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-toolbar color="primary" *ngIf="(auth.user | async)">
+      <button mat-icon-button class="example-icon" aria-label="Menu" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span style="margin-left: 10px;">{{ title }}</span>
+      <span class="nav-spacer"></span>
+      <div *ngIf="(auth.user | async)">
+        <button [routerLink]="['/home']" routerLinkActive="btn-active" mat-icon-button class="btn"
+          aria-label="Home">
+          <mat-icon>home</mat-icon>
+        </button>
+        <button [routerLink]="['/cadastro']" routerLinkActive="btn-active" mat-icon-button class="btn"
+          aria-label="Cadastro">
+          <mat-icon>inventory_2</mat-icon>
+        </button>
+      </div>
+      <span class="nav-spacer"></span>
+      <!-- <button [routerLink]="['/login']" routerLinkActive="router-link-active" mat-icon-button class="example-icon"
+        aria-label="Login" *ngIf="!(auth.user | async)">
+        <mat-icon>lock</mat-icon>
+      </button> -->
+      <button mat-icon-button class="example-icon" (click)="logout()" *ngIf="(auth.user | async)">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+    <mat-progress-bar *ngIf="utils.getActivity()" mode="indeterminate"></mat-progress-bar>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+
+</mat-drawer-container>

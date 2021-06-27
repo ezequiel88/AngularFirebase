@@ -1,0 +1,39 @@
+<div class="container">
+
+    <div class="container_content">
+        <mat-card>
+            <br>
+            <mat-card-title>Login</mat-card-title>
+            <br>
+            <mat-card-content>
+                <form [formGroup]="formLogin">
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" matInput type="email">
+                    </mat-form-field>
+
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>Senha</mat-label>
+                        <input formControlName="senha" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </form>
+
+                <div class="btn_actions">
+                    <button mat-stroked-button color="primary" (click)="login()" [disabled]="formLogin.invalid">
+                        <mat-icon>lock</mat-icon> Login
+                    </button>
+                    <button mat-button type="button" [routerLink]="['/redefinir-senha']">Esqueci a Senha</button>
+                    <button mat-stroked-button type="button" [routerLink]="['/register']">
+                        <mat-icon>person_add</mat-icon> Cadastre-se
+                    </button>
+                </div>
+
+            </mat-card-content>
+
+        </mat-card>
+    </div>
+</div>
