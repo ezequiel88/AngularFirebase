@@ -1,1 +1,63 @@
-<p>register works!</p>
+<div class="container">
+
+    <div class="container_content">
+        <mat-card class="card">
+            <div class="logo">
+                <img src="assets/images/logo.png">
+            </div>
+
+            <br>
+            <mat-card-title class="title">Cadastro</mat-card-title>
+            <br>
+            <mat-card-content>
+                <form [formGroup]="formRegister">
+
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>Nome</mat-label>
+                        <input formControlName="nome" matInput type="text">
+                    </mat-form-field>
+
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>WhatsApp</mat-label>
+                        <input formControlName="whats" matInput type="tel">
+                    </mat-form-field>
+
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input formControlName="email" matInput type="email">
+                    </mat-form-field>
+
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>Senha</mat-label>
+                        <input formControlName="senha" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar Senha'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+
+                    <mat-form-field class="field" appearance="outline">
+                        <mat-label>Confirmar Senha</mat-label>
+                        <input formControlName="re_senha" matInput [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar Senha'"
+                            [attr.aria-pressed]="hide">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </form>
+
+                <div class="btn_actions">
+                    <button mat-stroked-button color="primary" (click)="register()" [disabled]="formRegister.invalid">
+                        <mat-icon>person_add</mat-icon> Cadastrar
+                    </button>
+                    <button mat-button type="button" [routerLink]="['/redefinir-senha']">Esqueci a Senha</button>
+                    <button mat-stroked-button type="button" [routerLink]="['/login']">
+                        <mat-icon>lock</mat-icon> Login
+                    </button>
+                </div>
+
+            </mat-card-content>
+
+        </mat-card>
+    </div>
+</div>

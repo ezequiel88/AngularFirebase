@@ -26,6 +26,7 @@ import { CrudService } from './services/crud.service';
 import { RedefinirSenhaComponent } from './components/redefinir-senha/redefinir-senha.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
@@ -35,6 +36,7 @@ import { ModalAlertComponent } from './components/modal-alert/modal-alert.compon
     HomeComponent,
     CadastroComponent,
     LoginComponent,
+    RegisterComponent,
     RedefinirSenhaComponent,
     ModalAlertComponent
   ],

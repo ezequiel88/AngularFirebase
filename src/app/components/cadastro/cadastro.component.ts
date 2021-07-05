@@ -7,7 +7,7 @@ import { ModalAlertComponent } from '../modal-alert/modal-alert.component';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { UtilsService } from 'src/app/services/utils.service';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
+export class ErrorsClass implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
@@ -19,15 +19,23 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss']
 })
-export class CadastroComponent implements OnInit {
+export class CadastroComponent {
 
-  formProduct: FormGroup
+  formProduct!: FormGroup
   view: boolean = true
-  matcher = new MyErrorStateMatcher()
+  matcher = new ErrorsClass()
 
   constructor(private formBuilder: FormBuilder, public crud: CrudService, public dialog: MatDialog, private utils: UtilsService) {
+    this.add()
+  }
 
-    this.formProduct = formBuilder.group({
+  openDialog() {
+    const dialogRef = this.dialog.open(ModalAlertComponent, { restoreFocus: false });
+    dialogRef.afterClosed().subscribe(() => null);
+  }
+
+  add() {
+    this.formProduct = this.formBuilder.group({
       id: [''],
       nome: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       preco: ['', Validators.compose([Validators.required])],
@@ -35,12 +43,9 @@ export class CadastroComponent implements OnInit {
     })
   }
 
-  ngOnInit(): void {
-  }
-
-  openDialog() {
-    const dialogRef = this.dialog.open(ModalAlertComponent, { restoreFocus: false });
-    dialogRef.afterClosed().subscribe(() => null);
+  cancel() {
+    this.view = true
+    this.formProduct.reset()
   }
 
   saveProduct() {
@@ -51,11 +56,11 @@ export class CadastroComponent implements OnInit {
           this.formProduct.reset()
           this.view = true
           this.utils.activity.next(false)
-          this.utils.showSnackBar('Produto cadastrado com sucesso!', '', 'end', 'bottom', 3000)
+          this.utils.showSnackBar('Produto cadastrado com sucesso!', '', 'center', 'bottom', 3000)
         })
         .catch((error) => {
           this.utils.activity.next(false)
-          this.utils.showSnackBar('Erro ao cadastrar produto!', '', 'end', 'bottom', 3000)
+          this.utils.showSnackBar('Erro ao cadastrar produto!', '', 'center', 'bottom', 3000)
           console.log(error)
         })
     } else {
@@ -70,6 +75,7 @@ export class CadastroComponent implements OnInit {
       preco: produto.preco,
       qtde: produto.qtde
     })
+    this.view = false
   }
 
   deleteProduct(produto: Product) {
@@ -95,7 +101,6 @@ export class CadastroComponent implements OnInit {
             console.log(error)
           })
       }
-
     })
   }
 }

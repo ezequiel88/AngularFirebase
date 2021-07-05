@@ -1,12 +1,13 @@
 <div class="container">
   <div class="container_content">
     <mat-card *ngIf="!view" class="card_form">
-      <form [formGroup]="formProduct" (ngSubmit)="saveProduct()">
-        <br>
+      <div class="header">
         <mat-card-title>Cadastro de Produtos</mat-card-title>
-        <br>
-        <mat-card-content>
-          <div class="form_fields">
+      </div>
+
+      <mat-card-content>
+        <div class="form_fields">
+          <form [formGroup]="formProduct">
             <mat-form-field class="field" appearance="outline">
               <mat-label>Nome do Produto</mat-label>
               <input formControlName="nome" matInput type="text" [errorStateMatcher]="matcher">
@@ -39,34 +40,42 @@
                 *ngIf="formProduct.controls['preco'].errors?.required && !formProduct.controls['preco'].touched">
                 Valor do produto é <strong>obrigatório</strong>!</mat-error>
             </mat-form-field>
-          </div>
+          </form>
+        </div>
+        <button mat-stroked-button color="accent" (click)="cancel()"
+          class="btn_cancel">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="saveProduct()" [disabled]="formProduct.invalid">Salvar
+          Produto</button>
+      </mat-card-content>
 
-
-          <button mat-stroked-button color="accent" (click)="view = true; formProduct.reset()"
-            class="btn_cancel">Cancelar</button>
-          <button mat-raised-button color="primary" type="submit">Salvar Produto</button>
-        </mat-card-content>
-      </form>
     </mat-card>
 
     <mat-card *ngIf="view" class="card_form">
       <div class="header">
         <mat-card-title>Cadastro de Produtos</mat-card-title>
-        <button mat-mini-fab color="primary" (click)="view = false"><mat-icon>add</mat-icon></button>
+        <button mat-mini-fab color="primary" (click)="add(); view=false">
+          <mat-icon>add</mat-icon>
+        </button>
       </div>
+      <p *ngIf="(crud.lista | async)?.length == 0">Nenhum registro encontrado!</p>
       <mat-card class="item_list" *ngFor="let p of crud.lista | async">
         <div class="info">
           <p matLine> <b>{{p.nome}}</b> </p>
           <p matLine>Qtde: {{p.qtde}} - Preço: R$ {{p.preco}}</p>
+          <p matLine>Criado por: <b>{{p.user_create}}</b> </p>
         </div>
+
         <div class="btn_action">
-          <button mat-icon-button color="primary" aria-label="Alterar Produto" (click)="edit(p)">
+          <button mat-icon-button color="primary" aria-label="Alterar Produto" (click)="edit(p)"
+            [disabled]="crud.user_id != p.user_create">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" aria-label="Excluir Produto" (click)="deleteProduct(p)">
+          <button mat-icon-button color="warn" aria-label="Excluir Produto" (click)="deleteProduct(p)"
+            [disabled]="crud.user_id != p.user_create">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
+
       </mat-card>
     </mat-card>
   </div>

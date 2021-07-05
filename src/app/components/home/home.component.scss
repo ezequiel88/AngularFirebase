@@ -1,3 +1,11 @@
+
+.container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+}
 .container_content{
-    padding: 20px;
+    padding: 20px 10px;
+    width: 1200px;
 }

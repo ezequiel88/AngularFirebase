@@ -2,8 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface DialogData {
-  id: string;
-  nome: string;
+  id?: string;
+  nome?: string;
+  action?: boolean;
 }
 
 @Component({
