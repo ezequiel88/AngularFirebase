@@ -2,57 +2,77 @@
   <div class="container_content">
     <mat-card *ngIf="!view" class="card_form">
       <div class="header">
-        <mat-card-title>Cadastro de Produtos</mat-card-title>
+        <mat-card-title>Cadastro</mat-card-title>
+        <div>
+        <button mat-mini-fab color="" class="btn_cancel" (click)="cancel()">
+          <mat-icon>clear</mat-icon>
+        </button>
+        <button mat-mini-fab color="warn" (click)="saveProduct()" [disabled]="formProduct.invalid">
+          <mat-icon>save</mat-icon>
+        </button>          
+        </div>
+
       </div>
 
       <mat-card-content>
         <div class="form_fields">
           <form [formGroup]="formProduct">
-            <mat-form-field class="field" appearance="outline">
-              <mat-label>Nome do Produto</mat-label>
-              <input formControlName="nome" matInput type="text" [errorStateMatcher]="matcher">
 
-              <mat-error *ngIf="formProduct.controls['nome'].errors?.required && formProduct.controls['nome'].touched">
-                Digite o nome do produto!</mat-error>
-              <mat-error *ngIf="formProduct.controls['nome'].errors?.required && !formProduct.controls['nome'].touched">
-                Nome
-                do produto é <strong>obrigatório</strong>!</mat-error>
-            </mat-form-field>
+            <div class="line_form">
 
-            <mat-form-field class="field" appearance="outline">
-              <mat-label>Quantidade</mat-label>
-              <input formControlName="qtde" matInput type="number">
+                <mat-form-field class="field" appearance="outline">
+                  <mat-label>Nome do Produto</mat-label>
+                  <input formControlName="nome" matInput type="text" [errorStateMatcher]="matcher">
 
-              <mat-error *ngIf="formProduct.controls['qtde'].errors?.required && formProduct.controls['qtde'].touched">
-                Digite a quantidade do produto!</mat-error>
-              <mat-error *ngIf="formProduct.controls['qtde'].errors?.required && !formProduct.controls['qtde'].touched">
-                Quantidade do produto é <strong>obrigatório</strong>!</mat-error>
-            </mat-form-field>
+                  <mat-error
+                    *ngIf="formProduct.controls['nome'].errors?.required && formProduct.controls['nome'].touched">
+                    Digite o nome do produto!</mat-error>
+                  <mat-error
+                    *ngIf="formProduct.controls['nome'].errors?.required && !formProduct.controls['nome'].touched">
+                    Nome
+                    do produto é <strong>obrigatório</strong>!</mat-error>
+                </mat-form-field>           
 
-            <mat-form-field class="field" appearance="outline">
-              <mat-label>Valor</mat-label>
-              <input formControlName="preco" matInput type="text">
+              <div class="col_form">
 
-              <mat-error
-                *ngIf="formProduct.controls['preco'].errors?.required && formProduct.controls['preco'].touched">
-                Digite o valor do produto!</mat-error>
-              <mat-error
-                *ngIf="formProduct.controls['preco'].errors?.required && !formProduct.controls['preco'].touched">
-                Valor do produto é <strong>obrigatório</strong>!</mat-error>
-            </mat-form-field>
+                <mat-form-field class="field" appearance="outline">
+                  <mat-label>Quantidade</mat-label>
+                  <input formControlName="qtde" matInput type="number">
+
+                  <mat-error
+                    *ngIf="formProduct.controls['qtde'].errors?.required && formProduct.controls['qtde'].touched">
+                    Digite a quantidade do produto!</mat-error>
+                  <mat-error
+                    *ngIf="formProduct.controls['qtde'].errors?.required && !formProduct.controls['qtde'].touched">
+                    Quantidade do produto é <strong>obrigatório</strong>!</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="field" appearance="outline">
+                  <mat-label>Valor</mat-label>
+                  <input formControlName="preco" matInput type="tel" currencyMask [options]="{ prefix: 'R$ ', thousands: '', decimal: '.', align: 'left' }">
+
+                  <mat-error
+                    *ngIf="formProduct.controls['preco'].errors?.required && formProduct.controls['preco'].touched">
+                    Digite o valor do produto!</mat-error>
+                  <mat-error
+                    *ngIf="formProduct.controls['preco'].errors?.required && !formProduct.controls['preco'].touched">
+                    Valor do produto é <strong>obrigatório</strong>!</mat-error>
+                </mat-form-field>
+
+              </div>
+            </div>
+
+
           </form>
         </div>
-        <button mat-stroked-button color="accent" (click)="cancel()"
-          class="btn_cancel">Cancelar</button>
-        <button mat-raised-button color="primary" (click)="saveProduct()" [disabled]="formProduct.invalid">Salvar
-          Produto</button>
+
       </mat-card-content>
 
     </mat-card>
 
     <mat-card *ngIf="view" class="card_form">
       <div class="header">
-        <mat-card-title>Cadastro de Produtos</mat-card-title>
+        <mat-card-title>Produtos</mat-card-title>
         <button mat-mini-fab color="primary" (click)="add(); view=false">
           <mat-icon>add</mat-icon>
         </button>
@@ -61,8 +81,8 @@
       <mat-card class="item_list" *ngFor="let p of crud.lista | async">
         <div class="info">
           <p matLine> <b>{{p.nome}}</b> </p>
-          <p matLine>Qtde: {{p.qtde}} - Preço: R$ {{p.preco}}</p>
-          <p matLine>Criado por: <b>{{p.user_create}}</b> </p>
+          <p matLine>Qtde: {{p.qtde}}</p><p>Preço: R$ {{p.preco}}</p>
+          <!-- <p matLine>Criado por: <b>{{p.user_create}}</b> </p> -->
         </div>
 
         <div class="btn_action">

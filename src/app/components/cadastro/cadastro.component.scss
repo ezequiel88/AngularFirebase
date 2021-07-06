@@ -1,15 +1,23 @@
-
 .container {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
 }
-.container_content{
+.container_content {
     padding: 20px 10px;
     width: 1200px;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
 
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
 .item_list {
     box-shadow: 0 0 10px 0 rgba(204, 204, 204, 0.4);
     margin-bottom: 8px;
@@ -27,7 +35,7 @@
     width: 100%;
 }
 
-.header{
+.header {
     mat-card-title {
         margin: 0;
     }
@@ -44,4 +52,50 @@
 }
 .card_form {
     background-color: #dadadacc;
+}
+
+.line_form {
+    display: grid;
+    grid-column-gap: 10px;
+}
+
+.col_form {
+    display: grid;
+    grid-column-gap: 10px;
+}
+
+@media (min-width: 992px) {
+    .line_form {
+        grid-template-columns: 1fr 1fr;
+    }
+    .col_form {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 668px) and (max-width: 991px) {
+    .line_form {
+        grid-template-columns: 1fr 1fr;
+    }
+    .col_form {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 667px) {
+    .line_form {
+        grid-template-columns: 1fr;
+    }
+    .col_form {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 575px) {
+    .line_form {
+        grid-template-columns: 1fr;
+    }
+    .col_form {
+        grid-template-columns: 1fr;
+    }
 }

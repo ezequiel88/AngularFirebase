@@ -8,6 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CadastroComponent } from './components/cadastro/cadastro.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { LoginComponent } from './components/login/login.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -28,6 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ModalAlertComponent } from './components/modal-alert/modal-alert.component';
 import { RegisterComponent } from './components/register/register.component';
 
+import { NgxCurrencyModule } from "ngx-currency";
 
 
 @NgModule({
@@ -45,6 +47,7 @@ import { RegisterComponent } from './components/register/register.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxCurrencyModule,
     MatToolbarModule,
     MatIconModule,
     MatListModule,
@@ -54,6 +57,7 @@ import { RegisterComponent } from './components/register/register.component';
     MatSelectModule,
     MatCardModule,
     MatDialogModule,
+    MatGridListModule,
     MatProgressBarModule,
     MatMenuModule,
     MatInputModule,
